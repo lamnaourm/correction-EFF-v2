@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import {useDispatch} from '@reduxjs/toolkit'
+import {ajouter} from '../redux/calculslice'
 
 export default function CalculFrais() {
 
@@ -9,6 +11,7 @@ export default function CalculFrais() {
     const [honoraire, setHonoraire] = useState()
     const [tva, setTVA] = useState()
     const [total, setTotal] = useState()
+    const dispatch = useDispatch()
 
     const handleClick = () => {
         setDroitEnreg(prixVente*0.04)
@@ -29,6 +32,7 @@ export default function CalculFrais() {
         setTVA(honoraire*0.1)
         setTotal(droitEnreg+conservFonc+fraisDossier+honoraire+tva)
 
+        dispatch(ajouter({id:prixVente,Droits_en:droitEnreg, conservation:conservFonc, Date:Date.now, total:total}))
     }
   return (
     <div>
